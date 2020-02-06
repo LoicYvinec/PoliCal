@@ -9,6 +9,7 @@ class GTDException(Exception):
 
 class TrelloConnection:
     '''this one handles connection, retry attempts, stuff like that so it doesn't bail out each
+    
     time we lose connection
     creating a connection requires configuration to be parsed because we need the api keys- so this will need to be invoked
     after the config parser is done doing its thing, with a parameter perhaps being the config
