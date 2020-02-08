@@ -6,7 +6,7 @@ import configuration
 from datetime import datetime
 
 
-def LoadCSVTasktoDB():
+def load_csv_task_to_db():
     with open(configuration.get_file_location('calendar.csv')) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=';')
         line_count = 0
@@ -15,8 +15,8 @@ def LoadCSVTasktoDB():
                 line_count += 1
             elif len(row) > 9 and not line_count == 0:
                 # print(len(row))
-                create_subject.create(Get_Subject_Name_From_CSV(row[9]),row[2])
-                sbjID = connectSQLite.getSubjectID(Get_Subject_Name_From_CSV(row[9]))
+                create_subject.create(get_subject_name_from_csv(row[9]),row[2])
+                sbjID = connectSQLite.getSubjectID(get_subject_name_from_csv(row[9]))
                 # print(row[0])
                 # Siempre se extraera la fecha aun cuando pueda tener un
                 # formato YMDTXXX
@@ -26,6 +26,6 @@ def LoadCSVTasktoDB():
                 # print("Las tareas nuevas se agregaron a la BD")
                 sql.connection.close()
 
-def Get_Subject_Name_From_CSV(full_subject_name):
+def get_subject_name_from_csv(full_subject_name):
     list = full_subject_name.split("_", 3)
     return list[1]

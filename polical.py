@@ -2,5 +2,5 @@ import TareasCSVToBD
 import SendTaskToTrello
 import SimpleIcsToCSV
 SimpleIcsToCSV.convert_ics_to_csv()
-TareasCSVToBD.LoadCSVTasktoDB()
+TareasCSVToBD.load_csv_task_to_db()
 SendTaskToTrello.send_task_to_trello()
