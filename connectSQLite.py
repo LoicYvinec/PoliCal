@@ -56,18 +56,6 @@ def save_subject_ID(subject):
     # db.close()
     return cur
 
-
-def getCardsdb(db):
-    cur = exec(
-        "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Tareas';", get_cur(db))
-    # print all the first cell of all the rows
-    cards = []
-    for row in cur.fetchall():
-        cards.append(row[0])
-    db.close()
-    return cards
-
-
 def get_subject_ID(subjCod):
     query = "select idMaterias from Materias where MatCodigo = \'" + subjCod + "\'"
     cur = get_db().cursor()
