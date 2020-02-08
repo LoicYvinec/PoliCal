@@ -3,27 +3,27 @@ import TareaClass
 import configuration
 
 
-def getdb():
+def get_db():
     db = sqlite3.connect(configuration.get_file_location('tasks.db'))
     return db
 
 
-def getCur():
-    cur = getdb().cursor()
+def get_cur():
+    cur = get_db().cursor()
     return cur
 
 
 def exec(command):
     # Use all the SQL you like
-    cur = getdb().cursor()
+    cur = get_db().cursor()
     cur.execute(command)
-    getdb().commit()
+    get_db().commit()
     # db.close()
     return cur
 
 
-def saveTask(task):
-    cur = getdb().cursor()
+def save_task(task):
+    cur = get_db().cursor()
     checker = "select count(TarUID) from Tareas where TarUID = \'" + \
         task.id + "\'"
     cur.execute(checker, ())
@@ -39,17 +39,17 @@ def saveTask(task):
     return cur
 
 
-def saveSubjects(subject):
+def save_subjects(subject):
     query = "INSERT INTO Materias (MatNombre, MatCodigo, MatID) values (?, ?, ?);"
-    cur = getdb().cursor()
+    cur = get_db().cursor()
     cur.execute(query, (subject.name, subject.codigo, subject.id))
     cur.connection.commit()
     # db.close()
     return cur
 
 
-def saveSubjectID(subject):
-    cur = getdb().cursor()
+def save_subject_ID(subject):
+    cur = get_db().cursor()
     cur.execute("UPDATE Materias SET MatID = ? WHERE MatCodigo = ?;",
                 (subject.id, subject.codigo))
     cur.connection.commit()
@@ -59,7 +59,7 @@ def saveSubjectID(subject):
 
 def getCardsdb(db):
     cur = exec(
-        "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Tareas';", getCur(db))
+        "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Tareas';", get_cur(db))
     # print all the first cell of all the rows
     cards = []
     for row in cur.fetchall():
@@ -68,9 +68,9 @@ def getCardsdb(db):
     return cards
 
 
-def getSubjectID(subjCod):
+def get_subject_ID(subjCod):
     query = "select idMaterias from Materias where MatCodigo = \'" + subjCod + "\'"
-    cur = getdb().cursor()
+    cur = get_db().cursor()
     cur.execute(query)
     # print all the first cell of all the rows
     sbjID = ''
@@ -81,9 +81,9 @@ def getSubjectID(subjCod):
     return sbjID
 
 
-def getSubjectName(subjCod):
+def get_subject_name(subjCod):
     query = "select MatNombre from Materias where MatCodigo = \'" + subjCod + "\'"
-    cur = getdb().cursor()
+    cur = get_db().cursor()
     cur.execute(query)
     # print all the first cell of all the rows
     sbjName = ''
@@ -94,8 +94,8 @@ def getSubjectName(subjCod):
     return sbjName
 
 
-def addTarTID(TarUID, TarTID):
-    cur = getdb().cursor()
+def add_tar_TID(TarUID, TarTID):
+    cur = get_db().cursor()
     cur.execute(
         "UPDATE Tareas SET TarTID = ?, TarEstado = ? WHERE TarUID = ?;", (TarTID, "E", TarUID))
     cur.connection.commit()
@@ -103,9 +103,9 @@ def addTarTID(TarUID, TarTID):
     return cur
 
 
-def getTasks():
+def get_tasks():
     query = "select TarEstado, TarUID, TarTitulo, TarDescripcion, TarFechaLim, MatID from Materias, Tareas where Materias_idMaterias = idMaterias AND TarEstado = 'N';"
-    cur = getdb().cursor()
+    cur = get_db().cursor()
     cur.execute(query)
     tasks = []
     for row in cur.fetchall():
@@ -117,7 +117,7 @@ def getTasks():
 def check_no_subjectID(subjCod):
     query = "select count(MatCodigo) from Materias where MatCodigo=\'" + \
         subjCod + "\'AND MatID=\"\";"
-    cur = getdb().cursor()
+    cur = get_db().cursor()
     cur.execute(query)
     for row in cur.fetchall():
         result = row[0]

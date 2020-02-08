@@ -14,10 +14,10 @@ try:
             else:
                 subject = MateriaClass.Materia(row[1], row[0])
                 print(subject.print())
-                sql = connectSQLite.saveSubjects(subject)
+                sql = connectSQLite.save_subjects(subject)
                 for row in sql.fetchall():
                     print(row)
-                sql = connectSQLite.getdb().close()
+                sql = connectSQLite.get_db().close()
 except:
     print("FALSE")
 #            line_count += 1

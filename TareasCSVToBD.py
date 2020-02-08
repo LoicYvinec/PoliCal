@@ -16,13 +16,13 @@ def load_csv_task_to_db():
             elif len(row) > 9 and not line_count == 0:
                 # print(len(row))
                 create_subject.create(get_subject_name_from_csv(row[9]),row[2])
-                sbjID = connectSQLite.getSubjectID(get_subject_name_from_csv(row[9]))
+                sbjID = connectSQLite.get_subject_ID(get_subject_name_from_csv(row[9]))
                 # print(row[0])
                 # Siempre se extraera la fecha aun cuando pueda tener un
                 # formato YMDTXXX
                 task = TareaClass.Tarea(
                     row[1], row[2], row[3], datetime.strptime(row[7][0:8], '%Y%m%d'), sbjID)
-                sql = connectSQLite.saveTask(task)
+                sql = connectSQLite.save_task(task)
                 # print("Las tareas nuevas se agregaron a la BD")
                 sql.connection.close()
 

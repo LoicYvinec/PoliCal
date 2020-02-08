@@ -14,7 +14,7 @@ member_id = config['owner_id']
 
 def send_task_to_trello():
     subjectsBoard = client.get_board(config['board_id'])
-    tasks = connectSQLite.getTasks()
+    tasks = connectSQLite.get_tasks()
     if len(tasks) == 0:
         print("No existen tareas nuevas, verifique consultando el calendario")
     else:
@@ -29,4 +29,4 @@ def send_task_to_trello():
             card.set_due(datetime.strptime(x.due_date, '%Y-%m-%d %H:%M:%S'))
             # print(x.due_date)
             # card.set_due(x.due_date)
-            connectSQLite.addTarTID(x.id, subjectList.list_cards()[-1].id)
+            connectSQLite.add_tar_TID(x.id, subjectList.list_cards()[-1].id)
