@@ -1,6 +1,6 @@
 import wget
 import os
-def convertICStoCSV():
+def convert_ics_to_csv():
     print("Empezando:")
     print("Eliminando si existe")
     filename="mycalendar.ics"
