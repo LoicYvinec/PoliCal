@@ -12,7 +12,7 @@ client = TrelloClient(
 member_id = config['owner_id']
 
 
-def SendTaskToTrello():
+def send_task_to_trello():
     subjectsBoard = client.get_board(config['board_id'])
     tasks = connectSQLite.getTasks()
     if len(tasks) == 0:
