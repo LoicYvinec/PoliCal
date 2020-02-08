@@ -5,7 +5,7 @@ import sys
 import configuration
 
 
-def addEvent(header, filename):
+def add_event(header, filename):
     f = open(configuration.get_file_location(filename), "r", encoding='utf-8')
     f2 = open(configuration.get_file_location("calendar.csv"), "w+")
     f1 = f.readlines()
@@ -70,7 +70,7 @@ def addEvent(header, filename):
             f2.write("\n")
 
 
-def convertICStoCSV():
+def convert_ics_to_csv():
     # print("Empezando:")
     # print("Eliminando si existe")
     print("Descargando calendario desde Aula Virtual...")
@@ -79,11 +79,11 @@ def convertICStoCSV():
         os.remove(filename)
     url = configuration.load_config_file('polical.yaml')['calendar_url']
     wget.download(url, filename)
-    addEvent(findHeader(filename), filename)
+    add_event(find_header(filename), filename)
     print("\nEspere...")
 
 
-def findHeader(icsCal):
+def find_header(icsCal):
     f = open(configuration.get_file_location(icsCal), "r", encoding="utf-8")
     # print("Looking for headers in this file....")
     f2 = open(configuration.get_file_location("calendar.csv"), "w+")
@@ -156,7 +156,7 @@ def main(argv):
         filename = argv[1]
     else:
         print("python icsReader.py file/location/file.ics")
-    addEvent(findHeader(filename), filename)
+    add_event(find_header(filename), filename)
 
 
 if __name__ == "__main__":
